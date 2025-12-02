@@ -922,6 +922,12 @@ bool gslc_DrvGetTouch(gslc_tsGui* pGui,int16_t* pnX,int16_t* pnY,uint16_t* pnPre
   *peInputEvent = GSLC_INPUT_NONE;
 
   if (SDL_PollEvent(&sEvent)) {
+    #if defined(DRV_DISP_SDL1)
+      nKeyVal = (int16_t)(sEvent.key.keysym.sym);
+    #elif defined(DRV_DISP_SDL2)
+	  // In SDL2, the type of sym is int32.
+      nKeyVal = (int16_t)(sEvent.key.keysym.scancode);
+    #endif
     nKeyVal = (int16_t)(sEvent.key.keysym.sym);
 
     // Handle Key presses

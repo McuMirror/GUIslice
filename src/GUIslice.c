@@ -161,7 +161,11 @@ bool gslc_Init(gslc_tsGui* pGui,void* pvDriver,gslc_tsPage* asPage,uint8_t nMaxP
     #endif // !DRV_TOUCH_NONE
 
   #endif
-
+  // Enable touch input for SDL driver
+  #if defined(DRV_TOUCH_SDL)
+    pGui->bTouchEn = true;
+  #endif
+	
   // Default to remapping enabled
   pGui->bTouchRemapEn = true;
 
