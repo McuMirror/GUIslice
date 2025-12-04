@@ -184,12 +184,19 @@ int main( int argc, char* args[] )
   // Set up keyboard controls
   SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
   gslc_InitInputMap(&m_gui,m_asInputMap,MAX_INPUT_MAP);
-  gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_UP,   GSLC_ACTION_FOCUS_PREV,0);
-  gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_DOWN, GSLC_ACTION_FOCUS_NEXT,0);
-  gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_SPACE,GSLC_ACTION_SELECT,0);
-  gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_RIGHT,GSLC_ACTION_SET_REL,+10);
-  gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_LEFT, GSLC_ACTION_SET_REL,-10);
-
+  #if defined(DRV_DISP_SDL1)
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_UP,   GSLC_ACTION_FOCUS_PREV,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_DOWN, GSLC_ACTION_FOCUS_NEXT,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_SPACE,GSLC_ACTION_SELECT,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_RIGHT,GSLC_ACTION_SET_REL,+10);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDLK_LEFT, GSLC_ACTION_SET_REL,-10);
+  #elif defined(DRV_DISP_SDL2)
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDL_SCANCODE_UP,   GSLC_ACTION_FOCUS_PREV,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDL_SCANCODE_DOWN, GSLC_ACTION_FOCUS_NEXT,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDL_SCANCODE_SPACE,GSLC_ACTION_SELECT,0);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDL_SCANCODE_RIGHT,GSLC_ACTION_SET_REL,+10);
+    gslc_InputMapAdd(&m_gui,GSLC_INPUT_KEY_DOWN,SDL_SCANCODE_LEFT, GSLC_ACTION_SET_REL,-10);
+  #endif
   // -----------------------------------
   // Start display
   InitOverlays();
